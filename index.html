@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8"/>
-		
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-		
-		<meta name="author" content="Gustavo Toyota"/>
-		<meta name="description" content="Mathematical expression solver implemented in Javascript.">
-		<meta name="keywords" content="gustavo,takachi,toyota,javascript,math,mathematical,algebra,algebraic,expression,solver,calculator">
-		
-		<meta name="apple-mobile-web-app-title" content="Gustavo Toyota">
-		
-		<!-- Basic metadata -->
-		<meta property="og:title" content="Javascript Mathematical Expression Solver"/>
-		<meta property="og:url" content="https://gustavotoyota.github.io/"/>
-		<meta property="og:type" content="website"/>
-		<meta property="og:description" content="Mathematical expression solver implemented in Javascript."/>
-		
-		<!-- Optional metadata -->
-		<meta property="og:site_name" content="Javascript Mathematical Expression Solver"/>
-		<meta property="og:locale" content="en_US"/>
-		
-		<title>Javascript Math Expression Solver</title>
+    <head>
+        <meta charset="utf-8"/>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        
+        <meta name="author" content="Gustavo Toyota"/>
+        <meta name="description" content="Mathematical expression solver implemented in Javascript.">
+        <meta name="keywords" content="gustavo,takachi,toyota,javascript,math,mathematical,algebra,algebraic,expression,solver,calculator">
+        
+        <meta name="apple-mobile-web-app-title" content="Gustavo Toyota">
+        
+        <!-- Basic metadata -->
+        <meta property="og:title" content="Javascript Mathematical Expression Solver"/>
+        <meta property="og:url" content="https://gustavotoyota.github.io/"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:description" content="Mathematical expression solver implemented in Javascript."/>
+        
+        <!-- Optional metadata -->
+        <meta property="og:site_name" content="Javascript Mathematical Expression Solver"/>
+        <meta property="og:locale" content="en_US"/>
+        
+        <title>Javascript Math Expression Solver</title>
         
         <style>
             * {
@@ -39,11 +39,11 @@
             }
         </style>
         
-		<script src="lexer.js"></script>
-		<script src="parser.js"></script>
-		<script src="solver.js"></script>
-	</head>
-	<body style="display: flex">
+        <script src="lexer.js"></script>
+        <script src="parser.js"></script>
+        <script src="solver.js"></script>
+    </head>
+    <body style="display: flex">
         <div style="margin: auto; border: 1px solid black; padding: 15px">
             <div style="text-align: center; font-size: 25px; font-weight: bold">Javascript Math Expression Solver</div>
             <div style="margin-top: 15px">
@@ -74,7 +74,7 @@
             </div>
         </div>
         
-		<script>
+        <script>
             var tokenInfos = TokenInfos(
                 /* Tokens */ [
                     Token("WHITESPACE", "Whitespace", "[\\s]+", true),
@@ -94,14 +94,14 @@
                     TokenGroup("TERM_OPER", "Term operation", ["SIGN"])
                 ]
             );
-			
-			var lexer = Lexer(tokenInfos);
-			
-			text.addEventListener("keydown", function () {
-				if (event.keyCode === 13)
-					button.click();
-			});
-			button.addEventListener("click", function () {
+            
+            var lexer = Lexer(tokenInfos);
+            
+            text.addEventListener("keydown", function () {
+                if (event.keyCode === 13)
+                    button.click();
+            });
+            button.addEventListener("click", function () {
                 try {
                     lexer.reset(text.value);
                     var expr = parseExpr(lexer);
@@ -115,7 +115,7 @@
                     result.style.color = "red";
                     result.innerHTML = error;
                 }
-			});
-		</script>
-	</body>
+            });
+        </script>
+    </body>
 </html>
