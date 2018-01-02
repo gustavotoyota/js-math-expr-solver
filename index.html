@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8"/>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		
+		<meta name="author" content="Gustavo Toyota"/>
+		<meta name="description" content="Mathematical expression solver implemented in Javascript.">
+		<meta name="keywords" content="gustavo,takachi,toyota,javascript,mathematical,algebra,algebraic,expression,solver,calculator">
+		
+		<meta name="apple-mobile-web-app-title" content="Gustavo Toyota">
+		
+		<!-- Basic metadata -->
+		<meta property="og:title" content="Javascript Mathematical Expression Solver"/>
+		<meta property="og:url" content="https://gustavotoyota.github.io/"/>
+		<meta property="og:type" content="website"/>
+		<meta property="og:description" content="Mathematical expression solver implemented in Javascript."/>
+		
+		<!-- Optional metadata -->
+		<meta property="og:site_name" content="Javascript Mathematical Expression Solver"/>
+		<meta property="og:locale" content="en_US"/>
+		
+		<title>Javascript Mathematical Expression Solver</title>
+        
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+        
+            html {
+                height: 100%;
+            }
+            
+            body {
+                margin: 0;
+                
+                height: 100%;
+            }
+        </style>
+        
+		<script src="lexer.js"></script>
+		<script src="parser.js"></script>
+		<script src="solver.js"></script>
+	</head>
+	<body style="display: flex">
+        <div style="margin: auto; border: 1px solid black; padding: 15px">
+            <div style="text-align: center; font-size: 25px; font-weight: bold">Javascript Math Expression Solver</div>
+            <div style="margin-top: 15px">
+                <b>Functionalities:</b>
+                <ul>
+                    <li><b>Operators:</b> +, -, *, /, (), ^</li>
+                    <li><b>Constants:</b> pi, e</li>
+                    <li><b>Functions:</b> sqrt, cos, sin</li>
+                    <li>Press <b>Return</b> to solve</li>
+                    <li>Check the <b>console</b> for the Abstract Syntax Tree (AST)</li>
+                </ul>
+            </div>
+            <div>
+                <div><b>Expression:</b></div>
+                <input id="text" type="text" placeholder="Type an expression" style="width: calc(100% - 80px - 8px)"/><input id="button" type="button" value="Solve" style="margin-left: 8px; width: 80px"/>
+                <div id="result" style="margin-top: 8px; border: 1px solid #c0c0c0; text-align: center">Result: 0</div>
+            </div>
+            <div style="margin-top: 15px; text-align: center">
+                <div>Developed by <b>Gustavo Toyota</b>
+            </div>
+        </div>
+        
+		<script>
+			var tokens = [
+				Token("WHITESPACE", "Whitespace", "[\\s]+", true),
+				Token("PLUS", "\"+\"", "\\+"),
+				Token("MINUS", "\"-\"", "\\-"),
+				Token("MULTIPLY", "\"*\"", "\\*"),
+				Token("DIVIDE", "\"/\"", "/"),
+				Token("CIRCUMFLEX", "\"^\"", "\\^"),
+				Token("NUMBER", "Number", "\\d+(?:\\.\\d+)?"),
+				Token("IDENTIFIER", "Identifier", "[A-Za-z_]\\w*"),
+				Token("LPAREN", "\"(\"", "\\("),
+				Token("RPAREN", "\")\"", "\\)")
+			];
+			
+			var groups = [
+				TokenGroup("SIGN", "Sign", ["PLUS", "MINUS"]),
+				TokenGroup("FACTOR_OPER", "Factor operation", ["MULTIPLY", "DIVIDE"]),
+				TokenGroup("TERM_OPER", "Term operation", ["SIGN"])
+			];
+			
+			var lexer = Lexer(tokens, groups);
+			
+			text.addEventListener("keydown", function () {
+				if (event.keyCode === 13)
+					button.click();
+			});
+			button.addEventListener("click", function () {
+                try {
+                    lexer.reset(text.value);
+                    var expr = parseExpr(lexer);
+                    lexer.eof();
+                    
+                    console.log(expr);
+                    
+                    result.style.color = "black";
+                    result.innerHTML = "Result: " + solveExpr(expr);
+                } catch (error) {
+                    result.style.color = "red";
+                    result.innerHTML = error;
+                }
+			});
+		</script>
+	</body>
+</html>
