@@ -4,7 +4,7 @@ Mathematical expression solver implemented in Javascript. This solver uses [this
 
 ## Application
 
-[Link to the application](https://rawgit.com/gustavotoyota/js-math-expr-solver/master/)
+[Link to the application](https://cdn.rawgit.com/gustavotoyota/js-math-expr-solver/61763ed9/index.html)
 
 ## License
 
