@@ -1,1 +1,5 @@
-# js-math-expr-solver
+# Javascript Mathematical Expression Solver
+
+## License
+
+MIT License
